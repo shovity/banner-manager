@@ -1,0 +1,31 @@
+.content {
+  margin-top: 60px;
+}
+
+.hidden {
+  display: none;
+}
+
+.invisible {
+  position: fixed;
+}
+
+#mapBanner {
+  width: 100%;
+  transition: all .6s ease-in-out;
+}
+
+#mapBanner.small {
+  margin-left: 280px;
+  width: calc(100% - 310px);
+}
+
+#mapBanner .map-banner {
+  transition: all .6s ease-in-out;
+  margin: 0 auto;
+  width: 80%;
+}
+
+#mapBanner.small .map-banner {
+  width: 90%;
+}

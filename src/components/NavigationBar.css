@@ -1,0 +1,53 @@
+header {
+  width: 100%;
+  height: 100px;
+}
+
+.header {
+  position: relative;
+  z-index: 10000;
+  height: 100px;
+  width: 100%;
+  padding-left: 60px;
+  background: rgb(255, 255, 255);
+  transition: all .6s ease-in-out, height .4s ease-in-out;
+  box-shadow: 0;
+  border-bottom: 1px #eee solid;
+  font-size: 32px;
+}
+
+.header .logo {
+  margin: 10px;
+  height: calc(100% - 20px);
+}
+
+.header.fixed {
+  font-size: 14px;
+  border-bottom: 1px transparent solid;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+  background: rgb(255, 255, 255);
+  padding-left: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+
+}
+
+.header-body {
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  position: absolute;
+  bottom: 0;
+}
+
+.filter {
+  width: 300px;
+  margin: 7px 0;
+  font-size: 14px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 20px;
+}
