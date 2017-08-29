@@ -10,22 +10,22 @@
   position: fixed;
 }
 
-#mapBanner {
+#positions {
   width: 100%;
   transition: all .6s ease-in-out;
 }
 
-#mapBanner.small {
+#positions.small {
   margin-left: 280px;
   width: calc(100% - 310px);
 }
 
-#mapBanner .map-banner {
+#positions .map-position {
   transition: all .6s ease-in-out;
   margin: 0 auto;
   width: 80%;
 }
 
-#mapBanner.small .map-banner {
+#positions.small .map-position {
   width: 90%;
 }

@@ -12,7 +12,6 @@
 .box-preview {
   border-right: 1px solid #ccc;
   margin-right: -1px;
-
 }
 
 .box-info {
@@ -56,4 +55,15 @@
 
 .choose-position {
   display: inline-block;
+}
+
+.box-info input {
+  box-shadow: none;
+  outline: none;
+  background: none;
+  border: none;
+}
+
+.box-info input:focus {
+  box-shadow: none;
 }

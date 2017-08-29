@@ -43,11 +43,25 @@ header {
 }
 
 .filter {
-  width: 300px;
+  width: 100%;
   margin: 7px 0;
   font-size: 14px;
   position: absolute;
   bottom: 0;
   right: 0;
   padding: 0 20px;
+}
+
+.filter-tag {
+  text-align: right;
+  padding: 0 20px;
+  float: right;
+  display: inline-block;
+  width: 300px;
+}
+
+.search-box {
+  float: right;
+  display: inline-block;
+  width: 300px;
 }

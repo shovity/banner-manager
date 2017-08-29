@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
-import { DropdownButton, MenuItem } from 'react-bootstrap'
+import { DropdownButton, MenuItem, FormControl } from 'react-bootstrap'
 import { api } from '../config'
-import './BannerItem.css'
+import './PositionItem.css'
 
-class BannerItem extends Component {
+class PositionItem extends Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
-      imgSrc: api.static_uploads + '/' + this.props.banner.name,
+      currentDeal: 0,
+      imgSrc: '',
       isDragOver: false,
       isUpload: false,
-      size: '640x180'
+      size: ''
     }
+
+    this.deals = this.props.position.deals
+    this.id = this.props.position.id
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleDragOver = this.handleDragOver.bind(this)
@@ -21,9 +26,11 @@ class BannerItem extends Component {
     this.handleDragEnd = this.handleDragEnd.bind(this)
     this.handleUpload = this.handleUpload.bind(this)
     this.selectSize = this.selectSize.bind(this)
+    this.selectDeal = this.selectDeal.bind(this)
   }
 
   componentDidMount() {
+    this.selectDeal(0)
     const dropZone = this.refs.dropZone
     dropZone.addEventListener('drop', this.handleDrop)
     dropZone.addEventListener('dragover', this.handleDragOver)
@@ -85,7 +92,7 @@ class BannerItem extends Component {
     }
 
     fetch(
-      api.upload_url,
+      api.upload,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -103,22 +110,39 @@ class BannerItem extends Component {
   }
 
   selectSize(size) {
-    this.setState({ size })
-    console.log(size);
+    const imgSrc = api.base + this.deals[this.state.currentDeal].images[size]
+    console.log(imgSrc);
+    this.setState({ size, imgSrc })
+  }
+
+  selectDeal(i) {
+    const deal = this.deals[i]
+    console.log(deal);
+    if (!deal) return console.log('Deal not found')
+
+    this.setState({
+      currentDeal: i,
+      imgSrc: api.base + deal.images[Object.keys(deal.images)[0]],
+      size: Object.keys(deal.images)[0]
+    })
   }
 
   render() {
     const {
-      position,
       name,
-      deal,
       deal_link,
-      position_name,
+      position,
       images,
       is_active,
-    } = this.props.banner
+    } = this.props.position.deals[this.state.currentDeal]
 
-    const listSizeSelect = images && Object.keys(images).map((v, i) => <MenuItem key={i} eventKey={v}>{v}</MenuItem>)
+    const listSizeSelect = images && Object.keys(images).map((v, i) => {
+      return <MenuItem key={i} eventKey={v}>{v}</MenuItem>
+    })
+
+    const listDealSelect = this.deals && this.deals.map((deal, i) => {
+      return <MenuItem key={i} eventKey={i}>{deal.name}</MenuItem>
+    })
 
     return (
       <div className="row bannerItem">
@@ -135,22 +159,27 @@ class BannerItem extends Component {
           <div className="container-fluid">
 
             <div className="row controls">
-              <DropdownButton bsStyle='info' title={this.state.size} id="size" onSelect={this.selectSize}>
+
+              <DropdownButton bsSize='small' bsStyle='primary' title="Chương trình" id="size" onSelect={this.selectDeal}>
+                {listDealSelect}
+              </DropdownButton>
+
+              <DropdownButton bsSize='small' bsStyle='primary' title={this.state.size} id="size" onSelect={this.selectSize}>
                 {listSizeSelect}
               </DropdownButton>
 
-              <label htmlFor={'inputFile'+this.props.index}>
-                <buttom className="btn btn-sm btn-primary">Browser</buttom>
+              <label htmlFor={'inputFile'+this.id}>
+                <buttom className="btn btn-sm btn-success">Browser</buttom>
               </label>
 
               <buttom
                 onClick={this.handleUpload}
-                className={`btn btn-sm btn-success ${this.state.imgSrc === ''? 'disabled':''}`}>
-                {this.state.isUpload? 'Uploading...':'Upload'}
+                className="btn btn-sm btn-danger">
+                {this.state.isUpload? 'Saving...' : 'Save'}
               </buttom>
 
               <input
-                id={'inputFile'+this.props.index}
+                id={'inputFile'+this.id}
                 className="hidden"
                 onChange={this.handleInputChange}
                 ref="inputFile"
@@ -161,34 +190,32 @@ class BannerItem extends Component {
 
               <table className="table table-hover">
                 <tbody>
+
+                <tr>
+                  <td className="col-sm-4">Vị trí</td>
+                  <td className="col-sm-8">{this.id}</td>
+                </tr>
+
                   <tr>
-                    <td className="col-sm-4">position:</td>
-                    <td className="col-sm-8">{position}</td>
+                    <td className="col-sm-4">Chương trình</td>
+                    <td className="col-sm-8">
+                      <FormControl ref="chuong-trinh" />
+                    </td>
                   </tr>
 
                   <tr>
-                    <td className="col-sm-4">name:</td>
-                    <td className="col-sm-8">{name}</td>
-                  </tr>
-
-                  <tr>
-                    <td className="col-sm-4">deal: </td>
-                    <td className="col-sm-8">{deal}</td>
-                  </tr>
-
-                  <tr>
-                    <td className="col-sm-4">deal_link:</td>
+                    <td className="col-sm-4">Deal link</td>
                     <td className="col-sm-8">{deal_link}</td>
                   </tr>
 
                   <tr>
-                    <td className="col-sm-4">position_name:</td>
-                    <td className="col-sm-8">{position_name}</td>
+                    <td className="col-sm-4">Tên vị trí</td>
+                    <td className="col-sm-8">{position}</td>
                   </tr>
 
                   <tr>
-                    <td className="col-sm-4">is_active:</td>
-                    <td className="col-sm-8">{is_active}</td>
+                    <td className="col-sm-4">Active:</td>
+                    <td className="col-sm-8">{is_active? 'true' : 'false'}</td>
                   </tr>
                 </tbody>
             </table>
@@ -196,12 +223,10 @@ class BannerItem extends Component {
 
           </div>
         </div>
-
-
       </div>
     );
   }
 
 }
 
-export default BannerItem;
+export default PositionItem;

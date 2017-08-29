@@ -44,14 +44,14 @@ app.get('/', (req, res, next) => {
   res.end('ok')
 })
 
-app.get('/banner', (req, res, next) => {
-  fs.readFile(path.join(__dirname, 'banner.json'), (err, data) => {
+app.get('/api/position', (req, res, next) => {
+  fs.readFile(path.join(__dirname, 'position.json'), (err, data) => {
     if (err) return res.json({ err })
     res.json(JSON.parse(data))
   })
 })
 
-app.post('/upload', (req, res, next) => {
+app.post('/api/upload', (req, res, next) => {
   const { imgBase64, name, id } = req.body
   const imgBase64Data = imgBase64.replace(/^data:image\/.+;base64,/, "")
 
