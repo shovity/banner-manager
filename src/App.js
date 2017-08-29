@@ -8,6 +8,7 @@ import './App.css'
 
 class App extends Component {
   constructor(props) {
+    console.log(3);
     super(props)
     this.state = {
       position: null,
@@ -31,20 +32,21 @@ class App extends Component {
 
   handleScroll() {
     if (document.body.scrollTop > 1) {
-      this.setState({ isNavbarDown: true })
+      if (!this.state.isNavbarDown) this.setState({ isNavbarDown: true })
     } else {
-      this.setState({ isNavbarDown: false })
+      if (this.state.isNavbarDown) this.setState({ isNavbarDown: false })
     }
   }
 
   handleSearch(key) {
     const searchStack = key.split('-')
     if(key === '') return this.setState({ positionFilted: this.state.position })
+    console.log(key);
 
     const positions = []
     searchStack.forEach(v => {
-      if ( Number.isInteger(+v)) {
-        positions.push(...this.state.position.positions.filter(position => v === position.position+''))
+      if (Number.isInteger(+v)) {
+        positions.push(...this.state.position.positions.filter(p => v === p.id+''))
       } else {
         // Smart searching...
         //
@@ -56,6 +58,8 @@ class App extends Component {
         ...this.state.position,
         positions
       }
+    },() => {
+      console.log(this.state.positionFilted);
     })
   }
 

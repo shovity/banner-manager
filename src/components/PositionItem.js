@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { DropdownButton, MenuItem, FormControl } from 'react-bootstrap'
+import { DropdownButton, MenuItem, FormControl, InputGroup, ButtonGroup } from 'react-bootstrap'
+import "react-toggle/style.css"
+import Toggle from 'react-toggle'
 import { api } from '../config'
 import './PositionItem.css'
 
@@ -13,11 +15,9 @@ class PositionItem extends Component {
       imgSrc: '',
       isDragOver: false,
       isUpload: false,
-      size: ''
+      size: '',
+      isActive: false
     }
-
-    this.deals = this.props.position.deals
-    this.id = this.props.position.id
 
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleDragOver = this.handleDragOver.bind(this)
@@ -27,6 +27,7 @@ class PositionItem extends Component {
     this.handleUpload = this.handleUpload.bind(this)
     this.selectSize = this.selectSize.bind(this)
     this.selectDeal = this.selectDeal.bind(this)
+    this.onChangeToggleActive = this.onChangeToggleActive.bind(this)
   }
 
   componentDidMount() {
@@ -110,43 +111,59 @@ class PositionItem extends Component {
   }
 
   selectSize(size) {
-    const imgSrc = api.base + this.deals[this.state.currentDeal].images[size]
+    const imgSrc = api.base + this.props.position.deals[this.state.currentDeal].images[size]
     console.log(imgSrc);
     this.setState({ size, imgSrc })
   }
 
   selectDeal(i) {
-    const deal = this.deals[i]
-    console.log(deal);
+    const deal = this.props.position.deals[i]
+
+    const {
+      name,
+      deal_link,
+      position,
+    } = deal
+
+    this.textCT.value = name
+    this.textDL.value = deal_link
+    this.textTVT.value = position
+
     if (!deal) return console.log('Deal not found')
 
     this.setState({
       currentDeal: i,
       imgSrc: api.base + deal.images[Object.keys(deal.images)[0]],
-      size: Object.keys(deal.images)[0]
+      size: Object.keys(deal.images)[0],
+      isActive: deal.is_active
+    })
+  }
+
+  onChangeToggleActive() {
+    this.setState({
+      isActive: !this.state.isActive
     })
   }
 
   render() {
+    console.log('render pi');
     const {
-      name,
-      deal_link,
-      position,
       images,
-      is_active,
     } = this.props.position.deals[this.state.currentDeal]
 
     const listSizeSelect = images && Object.keys(images).map((v, i) => {
       return <MenuItem key={i} eventKey={v}>{v}</MenuItem>
     })
 
-    const listDealSelect = this.deals && this.deals.map((deal, i) => {
+    const listDealSelect = this.props.position.deals && this.props.position.deals.map((deal, i) => {
       return <MenuItem key={i} eventKey={i}>{deal.name}</MenuItem>
     })
 
+
+
     return (
       <div className="row bannerItem">
-
+        <div className="p-term">{this.props.position.id}</div>
         <div className="col-sm-7 box-preview">
           <div className={`drop-zone ${this.state.isDragOver? 'dragover' : ''}`}  ref="dropZone">
             <img src={this.state.imgSrc} className="banner-preview" alt="" />
@@ -160,65 +177,53 @@ class PositionItem extends Component {
 
             <div className="row controls">
 
-              <DropdownButton bsSize='small' bsStyle='primary' title="Chương trình" id="size" onSelect={this.selectDeal}>
-                {listDealSelect}
-              </DropdownButton>
+              <ButtonGroup justified>
+                <DropdownButton bsSize='small' bsStyle='primary' title="Chương trình" id="size" onSelect={this.selectDeal}>
+                  {listDealSelect}
+                </DropdownButton>
 
-              <DropdownButton bsSize='small' bsStyle='primary' title={this.state.size} id="size" onSelect={this.selectSize}>
-                {listSizeSelect}
-              </DropdownButton>
+                <DropdownButton bsSize='small' bsStyle='info' title={this.state.size} id="size" onSelect={this.selectSize}>
+                  {listSizeSelect}
+                </DropdownButton>
 
-              <label htmlFor={'inputFile'+this.id}>
-                <buttom className="btn btn-sm btn-success">Browser</buttom>
-              </label>
+                <a onClick={() => {this.refs.inputFile.click()}}className="btn btn-sm btn-success">
+                  Browser
+                </a>
 
-              <buttom
-                onClick={this.handleUpload}
-                className="btn btn-sm btn-danger">
-                {this.state.isUpload? 'Saving...' : 'Save'}
-              </buttom>
+                <a onClick={this.handleUpload} className="btn btn-sm btn-danger">
+                  {this.state.isUpload? 'Saving...' : 'Save'}
+                </a>
+              </ButtonGroup>
 
               <input
-                id={'inputFile'+this.id}
                 className="hidden"
                 onChange={this.handleInputChange}
                 ref="inputFile"
                 type="file" />
             </div>
 
-            <div className="row">
+            <div className="row info">
 
-              <table className="table table-hover">
-                <tbody>
+              <InputGroup bsSize="small">
+                <InputGroup.Addon>Chương trình</InputGroup.Addon>
+                  <FormControl type="text" inputRef={ref=>{this.textCT=ref}} />
+              </InputGroup>
 
-                <tr>
-                  <td className="col-sm-4">Vị trí</td>
-                  <td className="col-sm-8">{this.id}</td>
-                </tr>
+              <InputGroup  bsSize="small">
+                <InputGroup.Addon>Deal link</InputGroup.Addon>
+                <FormControl type="text" inputRef={ref=>{this.textDL=ref}} />
+              </InputGroup>
 
-                  <tr>
-                    <td className="col-sm-4">Chương trình</td>
-                    <td className="col-sm-8">
-                      <FormControl ref="chuong-trinh" />
-                    </td>
-                  </tr>
+              <InputGroup  bsSize="small">
+                <InputGroup.Addon>Tên vị trí</InputGroup.Addon>
+                <FormControl type="text"  inputRef={ref=>{this.textTVT=ref}}/>
+              </InputGroup>
 
-                  <tr>
-                    <td className="col-sm-4">Deal link</td>
-                    <td className="col-sm-8">{deal_link}</td>
-                  </tr>
+              <label>
+                <Toggle icons={false} checked={this.state.isActive} onChange={this.onChangeToggleActive}/>
+                <span>Active</span>
+              </label>
 
-                  <tr>
-                    <td className="col-sm-4">Tên vị trí</td>
-                    <td className="col-sm-8">{position}</td>
-                  </tr>
-
-                  <tr>
-                    <td className="col-sm-4">Active:</td>
-                    <td className="col-sm-8">{is_active? 'true' : 'false'}</td>
-                  </tr>
-                </tbody>
-            </table>
             </div>
 
           </div>

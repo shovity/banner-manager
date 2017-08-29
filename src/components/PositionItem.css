@@ -57,7 +57,42 @@
   display: inline-block;
 }
 
-.box-info input {
+.info .input-group-addon {
+  min-width: 100px;
+}
+
+.info .input-group {
+  margin: 10px 0 0 5px;
+}
+
+.info label {
+  margin: 20px 0 0 5px;
+}
+
+.react-toggle-thumb {
+  box-shadow: none !important;
+}
+
+.info .react-toggle-track {
+  margin-bottom: -7px;
+  margin-right: 10px;
+}
+
+.p-term {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 100;
+  width: 50px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+/*.box-info input {
   box-shadow: none;
   outline: none;
   background: none;
@@ -66,4 +101,4 @@
 
 .box-info input:focus {
   box-shadow: none;
-}
+}*/
