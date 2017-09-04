@@ -8,6 +8,7 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "express": "^4.15.4",
+    "mongoose": "^4.11.9",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.2",
     "react-dom": "^15.6.1",
@@ -15,7 +16,7 @@
     "react-toggle": "^4.0.1"
   },
   "scripts": {
-    "start": "gnome-terminal -e 'yarn start-upload-server'; react-scripts start",
+    "start": "react-scripts start",
     "start-upload-server": "node server/app",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

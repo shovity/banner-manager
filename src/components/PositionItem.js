@@ -85,11 +85,25 @@ class PositionItem extends Component {
     if (this.state.imgSrc === '' || !this.refs.inputFile.files[0]) return
 
     this.setState({ isUpload: true })
+    const currentDeal = this.props.position.deals[this.state.currentDeal]
     const file = this.refs.inputFile.files[0]
+    // const name = file.name
+
+    const deal = Object.assign(
+      currentDeal,
+      {
+        newName: this.textCT.value,
+        deal_link: this.textDL.value,
+        position: this.textTVT.value,
+        is_active: this.state.isActive
+      }
+    )
     const body = {
       imgBase64: this.state.imgSrc,
+      imgSize: this.state.size,
       name: file.name,
-      id: this.props.banner.id
+      id: this.props.position.id,
+      deal
     }
 
     fetch(

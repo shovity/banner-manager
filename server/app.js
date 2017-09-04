@@ -5,6 +5,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const { readPosition, writePosition, createDeal, updateDeal } = require('./Position')
 
 const app = express()
 const port = process.env.PORT || 3001
@@ -40,30 +41,35 @@ app.use(bodyParser.urlencoded({ extended: false, limit: '10mb' }))
 app.use(cookieParser())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
-app.get('/', (req, res, next) => {
-  res.end('ok')
-})
-
 app.get('/api/position', (req, res, next) => {
-  fs.readFile(path.join(__dirname, 'position.json'), (err, data) => {
+  fs.readFile(path.join(__dirname, 'storage', 'position.json'), (err, data) => {
     if (err) return res.json({ err })
     res.json(JSON.parse(data))
   })
 })
 
-app.post('/api/upload', (req, res, next) => {
-  const { imgBase64, name, id } = req.body
-  const imgBase64Data = imgBase64.replace(/^data:image\/.+;base64,/, "")
-
-  fs.writeFile(path.join(dirUpload, name), imgBase64Data, 'base64', err => {
-    if (err) {
-      res.json({ err })
-    } else {
-      res.json({ code: 0 })
-    }
+app.get('/api/position/:id', (req, res, next) => {
+  readPosition(req.params.id, (err, position) => {
+    if (err) return res.json({err})
+    res.json(position)
   })
-  // Id is number or array-number (muti-banner)
-  updateMapBanner(name, id)
+})
+
+app.post('/api/upload', (req, res, next) => {
+  const {
+    imgBase64,
+    imgSize,
+    name,
+    id,
+    deal
+  } = req.body
+
+  const ext = name.split('.').slice(-1).toString()
+  const imgBase64Data = imgBase64.replace(/^data:image\/.+;base64,/, "")
+  updateDeal(id, imgBase64Data, imgSize, ext, deal, (err) => {
+    if (err) return res.json(err)
+    res.json({ erroCode: 0})
+  })
 })
 
 server.listen(port, () => {

@@ -1,0 +1,57 @@
+{
+  "positions": [
+    {
+      "id": "1",
+      "deals": [
+        {
+          "name": "Tocotoco giam 50% toan bo hoa don",
+          "deal_link": "https://jamja.vn/khuyenmai",
+          "position": "deal detail top",
+          "images": {
+            "750x93": "/uploads/1.png",
+            "640x180": "/uploads/2.png",
+            "1080x1920": "/uploads/1.png"
+          },
+          "is_active": true
+        },
+        {
+          "name": "1 Tocotoco giam 50% toan bo hoa don",
+          "deal_link": "https://jamja.vn/khuyenmai",
+          "position": "deal detail top",
+          "images": {
+            "750x93": "/uploads/2.png",
+            "640x180": "/uploads/1.png",
+            "1080x1920": "/uploads/2.png"
+          },
+          "is_active": false
+        },
+        {
+          "name": "2 Tocotoco giam 50% toan bo hoa don",
+          "deal_link": "https://jamja.vn/khuyenmai",
+          "position": "deal detail top",
+          "images": {
+            "750x93": "/uploads/1.png",
+            "640x180": "/uploads/2.png",
+            "1080x1920": "/uploads/1.png"
+          },
+          "is_active": true
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "deals": [
+        {
+          "name": "The coffee house giam 50% toan bo hoa don",
+          "deal_link": "https://jamja.vn/khuyenmai",
+          "position": "deal detail top",
+          "images": {
+            "750x93": "/uploads/1.png",
+            "640x180": "/uploads/2.png"
+          },
+          "is_active": false
+        }
+      ]
+    }
+  ]
+}
