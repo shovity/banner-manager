@@ -8,9 +8,9 @@
           "deal_link": "https://jamja.vn/khuyenmai",
           "position": "deal detail top",
           "images": {
-            "750x93": "/uploads/1.png",
-            "640x180": "/uploads/2.png",
-            "1080x1920": "/uploads/1.png"
+            "750x93": "http://127.0.0.1:3001/uploads/1.png",
+            "640x180": "http://127.0.0.1:3001/uploads/2.png",
+            "1080x1920": "http://127.0.0.1:3001/uploads/1.png"
           },
           "is_active": true
         },
@@ -19,9 +19,9 @@
           "deal_link": "https://jamja.vn/khuyenmai",
           "position": "deal detail top",
           "images": {
-            "750x93": "/uploads/2.png",
-            "640x180": "/uploads/1.png",
-            "1080x1920": "/uploads/2.png"
+            "750x93": "http://127.0.0.1:3001/uploads/2.png",
+            "640x180": "http://127.0.0.1:3001/uploads/1.png",
+            "1080x1920": "http://127.0.0.1:3001/uploads/2.png"
           },
           "is_active": false
         },
@@ -30,9 +30,9 @@
           "deal_link": "https://jamja.vn/khuyenmai",
           "position": "deal detail top",
           "images": {
-            "750x93": "/uploads/1.png",
-            "640x180": "/uploads/2.png",
-            "1080x1920": "/uploads/1.png"
+            "750x93": "http://127.0.0.1:3001/uploads/1.png",
+            "640x180": "http://127.0.0.1:3001/uploads/2.png",
+            "1080x1920": "http://127.0.0.1:3001/uploads/1.png"
           },
           "is_active": true
         }
@@ -46,8 +46,8 @@
           "deal_link": "https://jamja.vn/khuyenmai",
           "position": "deal detail top",
           "images": {
-            "750x93": "/uploads/1.png",
-            "640x180": "/uploads/2.png"
+            "750x93": "http://127.0.0.1:3001/uploads/1.png",
+            "640x180": "http://127.0.0.1:3001/uploads/2.png"
           },
           "is_active": false
         }

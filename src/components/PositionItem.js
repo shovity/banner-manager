@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { DropdownButton, MenuItem, FormControl, InputGroup, ButtonGroup } from 'react-bootstrap'
-import "react-toggle/style.css"
 import Toggle from 'react-toggle'
 import { api } from '../config'
+import "react-toggle/style.css"
 import './PositionItem.css'
 
 class PositionItem extends Component {
@@ -11,12 +11,10 @@ class PositionItem extends Component {
     super(props)
 
     this.state = {
-      currentDeal: 0,
-      imgSrc: '',
       isDragOver: false,
       isUpload: false,
-      size: '',
-      isActive: false
+      deal: this.props.position.deals[0],
+      currentSize: '',
     }
 
     this.handleInputChange = this.handleInputChange.bind(this)
@@ -73,8 +71,17 @@ class PositionItem extends Component {
     if (input.files && input.files[0]) {
       const reader = new FileReader()
       reader.onload = e => {
-        this.setState({ imgSrc: e.target.result }, () => {
-          console.log(this.refs.imgOrigin.offsetWidth + 'x' + this.refs.imgOrigin.offsetHeight);
+        const currentSize = this.state.currentSize
+        const objectSize = {}
+        objectSize[currentSize] = e.target.result
+        this.setState({
+          deal: {
+            ...this.state.deal,
+            images: {
+              ...this.state.deal.images,
+              ...objectSize
+            }
+          }
         })
       }
       reader.readAsDataURL(input.files[0])
@@ -82,29 +89,15 @@ class PositionItem extends Component {
   }
 
   handleUpload() {
-    if (this.state.imgSrc === '' || !this.refs.inputFile.files[0]) return
 
-    this.setState({ isUpload: true })
-    const currentDeal = this.props.position.deals[this.state.currentDeal]
-    const file = this.refs.inputFile.files[0]
-    // const name = file.name
-
-    const deal = Object.assign(
-      currentDeal,
-      {
-        newName: this.textCT.value,
-        deal_link: this.textDL.value,
-        position: this.textTVT.value,
-        is_active: this.state.isActive
-      }
-    )
     const body = {
-      imgBase64: this.state.imgSrc,
-      imgSize: this.state.size,
-      name: file.name,
-      id: this.props.position.id,
-      deal
+      ...this.state.deal,
+      name: this.textCT.value,
+      deal_link: this.textDL.value,
+      position: this.textTVT.value,
     }
+    console.log('uploading...');
+    return console.log(body);
 
     fetch(
       api.upload,
@@ -125,13 +118,12 @@ class PositionItem extends Component {
   }
 
   selectSize(size) {
-    const imgSrc = api.base + this.props.position.deals[this.state.currentDeal].images[size]
-    console.log(imgSrc);
-    this.setState({ size, imgSrc })
+    this.setState({ currentSize: size })
   }
 
   selectDeal(i) {
     const deal = this.props.position.deals[i]
+    if (!deal) return console.log('Deal not found')
 
     const {
       name,
@@ -143,27 +135,25 @@ class PositionItem extends Component {
     this.textDL.value = deal_link
     this.textTVT.value = position
 
-    if (!deal) return console.log('Deal not found')
-
     this.setState({
-      currentDeal: i,
-      imgSrc: api.base + deal.images[Object.keys(deal.images)[0]],
-      size: Object.keys(deal.images)[0],
-      isActive: deal.is_active
+      deal
+    }, () => {
+      // Select image size
+      this.selectSize(Object.keys(deal.images)[0])
     })
   }
 
   onChangeToggleActive() {
     this.setState({
-      isActive: !this.state.isActive
+      deal: { ...this.state.deal, is_active: !this.state.deal.is_active}
     })
   }
 
   render() {
-    console.log('render pi');
+    if (!this.state.deal) return <div></div>
     const {
       images,
-    } = this.props.position.deals[this.state.currentDeal]
+    } = this.state.deal
 
     const listSizeSelect = images && Object.keys(images).map((v, i) => {
       return <MenuItem key={i} eventKey={v}>{v}</MenuItem>
@@ -173,17 +163,13 @@ class PositionItem extends Component {
       return <MenuItem key={i} eventKey={i}>{deal.name}</MenuItem>
     })
 
-
-
     return (
       <div className="row bannerItem">
-        <div className="p-term">{this.props.position.id}</div>
         <div className="col-sm-7 box-preview">
           <div className={`drop-zone ${this.state.isDragOver? 'dragover' : ''}`}  ref="dropZone">
-            <img src={this.state.imgSrc} className="banner-preview" alt="" />
+            <img src={this.state.deal.images[this.state.currentSize]} className="banner-preview" alt="" />
             <div className="ol-dragover"></div>
           </div>
-          <img src={this.state.imgSrc} className="invisible" ref="imgOrigin" alt="" />
         </div>
 
         <div className="col-sm-5 box-info">
@@ -196,7 +182,7 @@ class PositionItem extends Component {
                   {listDealSelect}
                 </DropdownButton>
 
-                <DropdownButton bsSize='small' bsStyle='info' title={this.state.size} id="size" onSelect={this.selectSize}>
+                <DropdownButton bsSize='small' bsStyle='info' title={this.state.currentSize} id="size" onSelect={this.selectSize}>
                   {listSizeSelect}
                 </DropdownButton>
 
@@ -218,6 +204,11 @@ class PositionItem extends Component {
 
             <div className="row info">
 
+            <InputGroup bsSize="small">
+              <InputGroup.Addon>Mã vị trí</InputGroup.Addon>
+                <FormControl type="text" value={this.props.position.id}/>
+            </InputGroup>
+
               <InputGroup bsSize="small">
                 <InputGroup.Addon>Chương trình</InputGroup.Addon>
                   <FormControl type="text" inputRef={ref=>{this.textCT=ref}} />
@@ -234,7 +225,7 @@ class PositionItem extends Component {
               </InputGroup>
 
               <label>
-                <Toggle icons={false} checked={this.state.isActive} onChange={this.onChangeToggleActive}/>
+                <Toggle icons={false} checked={this.state.deal.is_active} onChange={this.onChangeToggleActive}/>
                 <span>Active</span>
               </label>
 
