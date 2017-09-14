@@ -1,0 +1,11 @@
+#selectImage {
+
+}
+
+.preview {
+  background: red;
+}
+
+.preview img {
+  width: 100%;
+}

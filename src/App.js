@@ -8,7 +8,6 @@ import './App.css'
 
 class App extends Component {
   constructor(props) {
-    console.log(3);
     super(props)
     this.state = {
       position: null,

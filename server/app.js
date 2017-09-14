@@ -57,18 +57,15 @@ app.get('/api/position/:id', (req, res, next) => {
 
 app.post('/api/upload', (req, res, next) => {
   const {
-    imgBase64,
-    imgSize,
-    name,
-    id,
-    deal
+    id, name, newName, deal_link, is_active, images
   } = req.body
 
-  const ext = name.split('.').slice(-1).toString()
-  const imgBase64Data = imgBase64.replace(/^data:image\/.+;base64,/, "")
-  updateDeal(id, imgBase64Data, imgSize, ext, deal, (err) => {
-    if (err) return res.json(err)
-    res.json({ erroCode: 0})
+  updateDeal(id, name, { name: newName, deal_link, images }, (err) => {
+    if (err) {
+      res.json({ err })
+    } else {
+      res.json({ message: 'upload success!' })
+    }
   })
 })
 

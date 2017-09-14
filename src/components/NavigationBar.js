@@ -9,7 +9,7 @@ class NavigationBar extends Component {
     super(props)
 
     this.state = {
-      filterTag: ['desktop', 'mobile'],
+      filterTag: ['cho', 'dealDetail', 'muaOnline', 'BoSuuTap', 'BranDetail'],
     }
 
     this.onChaneFilter = this.onChaneFilter.bind(this)
@@ -40,15 +40,26 @@ class NavigationBar extends Component {
             </div>
 
             <div className="filter-tag">
+            <ToggleButtonGroup
+              className="apply-for-all"
+              type="checkbox"
+              value={this.filterTag}
+              onChange={this.onChaneFilter}>
+
+              <ToggleButton value='applyForAll'>Apply fo all</ToggleButton>
+
+            </ToggleButtonGroup>
+
               <ToggleButtonGroup
                 type="checkbox"
                 value={this.filterTag}
                 onChange={this.onChaneFilter}>
 
-                <ToggleButton value='desktop'>Desktop</ToggleButton>
-                <ToggleButton value='mobile'>Mobile</ToggleButton>
-                <ToggleButton value='xxx'>Xxx</ToggleButton>
-                <ToggleButton value='yyy'>Yyy</ToggleButton>
+                <ToggleButton value='cho'>Chợ</ToggleButton>
+                <ToggleButton value='dealDetail'>Deal detail</ToggleButton>
+                <ToggleButton value='muaOnline'>Mua online</ToggleButton>
+                <ToggleButton value='BoSuuTap'>Bộ sưu tập</ToggleButton>
+                <ToggleButton value='BranDetail'>Brand Detail</ToggleButton>
 
               </ToggleButtonGroup>
             </div>

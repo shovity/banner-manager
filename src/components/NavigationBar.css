@@ -57,11 +57,15 @@ header {
   padding: 0 20px;
   float: right;
   display: inline-block;
-  width: 300px;
+  width: 700px;
 }
 
 .search-box {
   float: right;
   display: inline-block;
   width: 300px;
+}
+
+.apply-for-all {
+  margin-right: 20px;
 }

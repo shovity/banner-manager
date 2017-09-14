@@ -60,6 +60,7 @@ const createDeal = (id, deal, callback) => {
 }
 
 /**
+updateDeal(id, name, { newName, deal_link, images }, (err) => {
  * Update Deal
  * @param {String}   id        [description]
  * @param {String}   imgBase64 [description]
@@ -68,25 +69,32 @@ const createDeal = (id, deal, callback) => {
  * @param {Object}   deal      [description]
  * @param {Function} callback  callback(err)
  */
-const updateDeal = (id, imgBase64, imgSize, ext, deal, callback) => {
-
+const updateDeal = (id, name, deal, callback) => {
+  // read position
   readPosition(id, (err, position) => {
-
     // Get deal index need to update
-    const dealId = position.positions[id].deals.findIndex(d => d.name === deal.name)
-    // Rename deal
-    if (deal.name !== deal.newName) deal.name = deal.newName
-    delete deal.newName
-    // Merger deal
-    const newDeal = Object.assign(position.deals[dealId], deal)
-    // Generate image name
-    const imageName = encodeURI(deal.name + '---' + imgSize) + '.' + ext
-    // Storage image
-    fs.writeFile(path.join(DIR_UPLOADS, imageName), imgBase64, 'base64', err => {
-      if (err) return callback(err)
-      newDeal.images[imgSize] = imageName
-      position.deals[dealId] = newDeal
-      writePosition(id, position, callback)
+    if (err) return console.log(err);
+    if (!position) return console.log('can not read position');
+    console.log(position);
+    const dealId = position.deals.findIndex(d => {
+      console.log(d.name + '==='+ deal.name);
+      return d.name === deal.name
+    })
+    console.log('idex=' + dealId);
+    const images = deal.images
+    images.forEach((image, i) => {
+      const result = image.match(/^data:image\/(.+);base64(.+)/)
+      if (!resutl) return
+      // image is base64 encoded
+      const ext = resutl[1]
+      const content = result[2]
+      const imageName = encodeURI(deal.name + '---' + imgSize) + '.' + ext
+      images[i] = 'http://127.0.0.1:3001/api/uploads/' + imageName
+      fs.writeFile(path.join(DIR_UPLOADS, imageName), content, 'base64', err => {
+        if (err) return callback(err)
+        position.deals[dealId] = deal
+        writePosition(id, position, callback)
+      })
     })
   })
 }

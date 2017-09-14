@@ -2,37 +2,35 @@
   "positions": [
     {
       "id": "1",
+      "position": "deal detail top",
       "deals": [
         {
           "name": "Tocotoco giam 50% toan bo hoa don",
           "deal_link": "https://jamja.vn/khuyenmai",
-          "position": "deal detail top",
           "images": {
-            "750x93": "http://127.0.0.1:3001/uploads/1.png",
-            "640x180": "http://127.0.0.1:3001/uploads/2.png",
-            "1080x1920": "http://127.0.0.1:3001/uploads/1.png"
+            "750x93": "http://127.0.0.1:3001/uploads/1.jpg",
+            "640x180": "http://127.0.0.1:3001/uploads/2.jpg",
+            "1080x1920": "http://127.0.0.1:3001/uploads/1.jpg"
           },
           "is_active": true
         },
         {
           "name": "1 Tocotoco giam 50% toan bo hoa don",
           "deal_link": "https://jamja.vn/khuyenmai",
-          "position": "deal detail top",
           "images": {
-            "750x93": "http://127.0.0.1:3001/uploads/2.png",
-            "640x180": "http://127.0.0.1:3001/uploads/1.png",
-            "1080x1920": "http://127.0.0.1:3001/uploads/2.png"
+            "750x93": "http://127.0.0.1:3001/uploads/2.jpg",
+            "640x180": "http://127.0.0.1:3001/uploads/1.jpg",
+            "1080x1920": "http://127.0.0.1:3001/uploads/2.jpg"
           },
           "is_active": false
         },
         {
           "name": "2 Tocotoco giam 50% toan bo hoa don",
           "deal_link": "https://jamja.vn/khuyenmai",
-          "position": "deal detail top",
           "images": {
-            "750x93": "http://127.0.0.1:3001/uploads/1.png",
-            "640x180": "http://127.0.0.1:3001/uploads/2.png",
-            "1080x1920": "http://127.0.0.1:3001/uploads/1.png"
+            "750x93": "http://127.0.0.1:3001/uploads/1.jpg",
+            "640x180": "http://127.0.0.1:3001/uploads/2.jpg",
+            "1080x1920": "http://127.0.0.1:3001/uploads/1.jpg"
           },
           "is_active": true
         }
@@ -40,14 +38,14 @@
     },
     {
       "id": "2",
+      "position": "deal detail top",
       "deals": [
         {
           "name": "The coffee house giam 50% toan bo hoa don",
           "deal_link": "https://jamja.vn/khuyenmai",
-          "position": "deal detail top",
           "images": {
-            "750x93": "http://127.0.0.1:3001/uploads/1.png",
-            "640x180": "http://127.0.0.1:3001/uploads/2.png"
+            "750x93": "http://127.0.0.1:3001/uploads/1.jpg",
+            "640x180": "http://127.0.0.1:3001/uploads/2.jpg"
           },
           "is_active": false
         }
