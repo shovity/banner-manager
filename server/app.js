@@ -5,7 +5,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
-const { readPosition, writePosition, createDeal, updateDeal } = require('./Position')
+const { readPosition, writePosition, updateDeal, createPosition, createDeal } = require('./Position')
 
 const app = express()
 const port = process.env.PORT || 3001
@@ -39,7 +39,7 @@ app.use(cors())
 app.use(bodyParser.json({ limit: '10mb' }))
 app.use(bodyParser.urlencoded({ extended: false, limit: '10mb' }))
 app.use(cookieParser())
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')))
 
 app.get('/api/position', (req, res, next) => {
   fs.readFile(path.join(__dirname, 'storage', 'position.json'), (err, data) => {
@@ -55,16 +55,44 @@ app.get('/api/position/:id', (req, res, next) => {
   })
 })
 
-app.post('/api/upload', (req, res, next) => {
+app.put('/api/position', (req, res, next) => {
   const {
-    id, name, newName, deal_link, is_active, images
+    pid, deal, deal_index
   } = req.body
 
-  updateDeal(id, name, { name: newName, deal_link, images }, (err) => {
+  updateDeal(pid, deal, deal_index, (err) => {
     if (err) {
       res.json({ err })
     } else {
       res.json({ message: 'upload success!' })
+    }
+  })
+})
+
+app.post('/api/position', (req, res, next) => {
+  const {
+    positionName, pageName
+  } = req.body
+
+  createPosition(positionName, pageName, (err) => {
+    if (err) {
+      res.json({ err })
+    } else {
+      res.json({ message: 'create position success!' })
+    }
+  })
+})
+
+app.post('/api/position/deal', (req, res, next) => {
+  const {
+    pid
+  } = req.body
+
+  createDeal(pid, (err) => {
+    if (err) {
+      res.json({ err })
+    } else {
+      res.json({ message: 'create deal success!' })
     }
   })
 })

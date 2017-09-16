@@ -7,75 +7,55 @@ import './PositionItem.css'
 
 class PositionItem extends Component {
 
+  constructor(props) {
+    super(props)
 
-  // handleUpload() {
-  //
-  //   const body = {
-  //     id: this.props.position.id,
-  //     ...this.state.deal,
-  //     newName: this.textCT.value,
-  //     deal_link: this.textDL.value
-  //   }
-  //   console.log('uploading...');
-  //
-  //   fetch(
-  //     api.upload,
-  //     {
-  //       method: 'POST',
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(body),
-  //     }
-  //   ).then(
-  //     response => response.json()
-  //   ).then(json => {
-  //     console.log(json)
-  //     this.setState({ isUpload: false })
-  //   }).catch(err => {
-  //     console.log(err)
-  //     this.setState({ isUpload: false })
-  //   })
-  // }
+    this.handleAddDeal = this.handleAddDeal.bind(this)
+  }
+
+  handleAddDeal() {
+    const body = {
+      pid: this.props.position.id
+    }
+
+    fetch(
+      api.deal,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      }
+    ).then(
+      response => response.json()
+    ).then(json => {
+      console.log(json)
+      window.location.reload()
+    }).catch(err => {
+      console.log(err)
+    })
+  }
 
   render() {
-
-    // const listImagePreview = this.state.deal.images && Object.keys(this.state.deal.images).map((v, i) => {
-    //   //
-    //   return (
-    //     <div key={i} className="preview-box">
-    //
-    //       <InputGroup bsSize="small">
-    //         <InputGroup.Addon>Size: {v}</InputGroup.Addon>
-    //         <a onClick={() => {this.refs[`inputFile-${v}`].click()}}className="btn btn-sm btn-default">
-    //           Choose
-    //         </a>
-    //       </InputGroup>
-    //
-    //       <img src={this.state.deal.images[v]} className="banner-preview" alt="" />
-    //
-    //       <input
-    //         className="hidden"
-    //         onChange={e => {
-    //           this.handleInputChange(e, v)
-    //         }}
-    //         ref={`inputFile-${v}`}
-    //         type="file" />
-    //
-    //     </div>
-    //   )
-    // })
-
     const listDeal = this.props.position.deals.map((v, i) => {
       //
-      return <Deal deal={v} />
+      return (
+        <div key={i}>
+          <Deal deal={v} index={i} pid={this.props.position.id} />
+        </div>
+      )
     })
 
     return (
-      <Panel className="deals" header={`Vị trí: ${this.props.position.position} (${this.props.position.id}) `}>
-        {listDeal}
-      </Panel>
+      <div className="deal-box">
+        <div className="btn-add-deal text-success" onClick={this.handleAddDeal}>
+          <span className="glyphicon glyphicon-plus"></span>
+        </div>
+        <Panel className="deals" header={`Vị trí: ${this.props.position.position} (${this.props.position.id}) `}>
+          {listDeal}
+        </Panel>
+      </div>
     );
   }
-
 }
 
 export default PositionItem;

@@ -69,3 +69,12 @@ header {
 .apply-for-all {
   margin-right: 20px;
 }
+
+.fadex {
+  transition: all .3s ease-in-out;
+}
+
+.deep {
+  opacity: 0;
+  pointer-events: none;
+}

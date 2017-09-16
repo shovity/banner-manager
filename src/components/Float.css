@@ -1,0 +1,18 @@
+#add-float {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  width: 50px;
+  height: 50px;
+  background: #e71e62;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px 0 rgba(0,0,0,0.26), 0 4px 15px 0 rgba(0,0,0,0.22);
+  cursor: pointer;
+  line-height: 50px;
+  color: #fff;
+  text-align: center;
+}
+
+.modal-dialog {
+  margin: 120px auto !important;
+}

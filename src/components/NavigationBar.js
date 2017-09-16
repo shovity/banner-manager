@@ -16,7 +16,9 @@ class NavigationBar extends Component {
   }
 
   onChaneFilter(value) {
-    this.setState({ filterTag: value })
+    this.setState({ filterTag: value }, () => {
+      this.props.onChaneFilter(value)
+    })
   }
 
   render() {
@@ -40,17 +42,18 @@ class NavigationBar extends Component {
             </div>
 
             <div className="filter-tag">
-            <ToggleButtonGroup
-              className="apply-for-all"
-              type="checkbox"
-              value={this.filterTag}
-              onChange={this.onChaneFilter}>
+              <ToggleButtonGroup
+                className="apply-for-all"
+                type="checkbox"
+                value={this.filterTag}
+                onChange={this.onChaneFilter}>
 
-              <ToggleButton value='applyForAll'>Apply fo all</ToggleButton>
+                <ToggleButton value='applyForAll'>Apply fo all</ToggleButton>
 
-            </ToggleButtonGroup>
+              </ToggleButtonGroup>
 
               <ToggleButtonGroup
+                className={this.state.filterTag.indexOf('applyForAll') !== -1? 'deep fadex' : 'fadex'}
                 type="checkbox"
                 value={this.filterTag}
                 onChange={this.onChaneFilter}>
