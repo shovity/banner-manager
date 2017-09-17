@@ -40,6 +40,11 @@ app.use(bodyParser.json({ limit: '10mb' }))
 app.use(bodyParser.urlencoded({ extended: false, limit: '10mb' }))
 app.use(cookieParser())
 app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')))
+app.use('/static', express.static(path.join(__dirname, 'static')))
+
+app.get('/', (req, res, next) => {
+  res.sendFile(path.join(__dirname, 'index.html'))
+})
 
 app.get('/api/position', (req, res, next) => {
   fs.readFile(path.join(__dirname, 'storage', 'position.json'), (err, data) => {

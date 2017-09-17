@@ -50,7 +50,7 @@ class PositionItem extends Component {
         <div className="btn-add-deal text-success" onClick={this.handleAddDeal}>
           <span className="glyphicon glyphicon-plus"></span>
         </div>
-        <Panel className="deals" header={`Vị trí: ${this.props.position.position} (${this.props.position.id}) `}>
+        <Panel className="deals" header={`Vị trí: ${this.props.position.position} (${this.props.position.id}) | ${this.props.position.page} `}>
           {listDeal}
         </Panel>
       </div>

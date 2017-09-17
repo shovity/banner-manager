@@ -63,6 +63,18 @@ class App extends Component {
       } else {
         // Smart searching...
         //
+        positions.push(...this.state.position.positions.filter(p => {
+          const key = v.replace(/ /g, '').toLowerCase()
+          const target = p.position.replace(/ /g, '').toLowerCase()
+          return target.indexOf(key) !== -1
+        }))
+
+        this.setState({
+          positionFilted: {
+            ...this.state.position,
+            positions
+          }
+        })
       }
     })
 
@@ -81,6 +93,7 @@ class App extends Component {
   }
 
   handleFilter(value) {
+    console.log(value);
     if (value.indexOf('applyForAll') !== -1) {
       this.setState({
         positionFilted: {
@@ -89,10 +102,15 @@ class App extends Component {
         }
       })
     } else {
+      const positions = []
+      positions.push(...this.state.position.positions.filter(p => {
+        return (value.indexOf(p.page) !== -1 || value.length === 0) && p.id !== 0
+      }))
+
       this.setState({
         positionFilted: {
           ...this.state.position,
-          positions: this.state.position.positions.filter(p => p.id !== '0')
+          positions
         }
       })
     }
@@ -105,7 +123,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavigationBar search={this.handleSearch} isDown={this.state.isNavbarDown} onChaneFilter={this.handleFilter}/>
+        <NavigationBar search={this.handleSearch} isDown={this.state.isNavbarDown} onChaneFilter={this.handleFilter} />
         <div className="content">
           <Menu isDown={!this.state.isNavbarDown} isOpen={this.state.isMenuOpen} toggleMenu={this.toggleMenu}/>
           <div id="positions" className={`${this.state.isMenuOpen? 'small' : ''}`}>

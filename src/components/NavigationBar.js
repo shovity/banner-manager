@@ -33,7 +33,7 @@ class NavigationBar extends Component {
 
             <div className="search-box">
               <div className="input-group">
-                <input type="text" className="form-control" placeholder="Search..."
+                <input type="text" className="form-control" placeholder="Search by name or id..."
                   onKeyUp={(event) => {
                     this.props.search(event.target.value)
                   }} />
@@ -42,27 +42,20 @@ class NavigationBar extends Component {
             </div>
 
             <div className="filter-tag">
+
+
               <ToggleButtonGroup
-                className="apply-for-all"
                 type="checkbox"
                 value={this.filterTag}
                 onChange={this.onChaneFilter}>
 
-                <ToggleButton value='applyForAll'>Apply fo all</ToggleButton>
+                <ToggleButton className="applyForAll" value='applyForAll'>Apply fo all</ToggleButton>
 
-              </ToggleButtonGroup>
-
-              <ToggleButtonGroup
-                className={this.state.filterTag.indexOf('applyForAll') !== -1? 'deep fadex' : 'fadex'}
-                type="checkbox"
-                value={this.filterTag}
-                onChange={this.onChaneFilter}>
-
-                <ToggleButton value='cho'>Chợ</ToggleButton>
-                <ToggleButton value='dealDetail'>Deal detail</ToggleButton>
-                <ToggleButton value='muaOnline'>Mua online</ToggleButton>
-                <ToggleButton value='BoSuuTap'>Bộ sưu tập</ToggleButton>
-                <ToggleButton value='BranDetail'>Brand Detail</ToggleButton>
+                <ToggleButton className={this.state.filterTag.indexOf('applyForAll') !== -1? 'deep fadex' : 'fadex'} value='cho'>Chợ</ToggleButton>
+                <ToggleButton className={this.state.filterTag.indexOf('applyForAll') !== -1? 'deep fadex' : 'fadex'} value='dealDetail'>Deal detail</ToggleButton>
+                <ToggleButton className={this.state.filterTag.indexOf('applyForAll') !== -1? 'deep fadex' : 'fadex'} value='muaOnline'>Mua online</ToggleButton>
+                <ToggleButton className={this.state.filterTag.indexOf('applyForAll') !== -1? 'deep fadex' : 'fadex'} value='BoSuuTap'>Bộ sưu tập</ToggleButton>
+                <ToggleButton className={this.state.filterTag.indexOf('applyForAll') !== -1? 'deep fadex' : 'fadex'} value='BranDetail'>Brand Detail</ToggleButton>
 
               </ToggleButtonGroup>
             </div>

@@ -11,8 +11,6 @@ class MapPosition extends Component {
       </div>
     )
 
-    console.log(this.props.position.positions);
-
     const positions = this.props.position.positions.map((v, i) => {
 
       return <PositionItem key={i} position={v} />

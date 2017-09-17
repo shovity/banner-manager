@@ -51,8 +51,9 @@
     "whatwg-fetch": "2.0.3"
   },
   "scripts": {
+    "deploy": "scripts/deploy",
+    "dev-upload-server": "nodemon server/app",
     "start": "node scripts/start.js",
-    "start-upload-server": "node server/app",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
   },
