@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { ToggleButtonGroup, ToggleButton } from 'react-bootstrap'
-import logo from '../static/logo.png'
+// import logo from '../static/logo.png'
 import './NavigationBar.css'
 
 class NavigationBar extends Component {
@@ -25,10 +25,10 @@ class NavigationBar extends Component {
     return (
       <header>
         <div ref="headerFixed" className={`header ${this.props.isDown? 'fixed' : ''}`}>
-          <img className="logo" src={logo} alt=""/>
+          {/*<img className="logo" src={logo} alt=""/>
           <div className="header-body">
             <span><strong>JAM</strong>JA.VN</span>
-          </div>
+          </div>*/}
           <div className="filter">
 
             <div className="search-box">

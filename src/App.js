@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import MapPosition from './components/MapPosition'
 import NavigationBar from './components/NavigationBar'
-import Menu from './components/Menu'
-import Float from './components/Float'
+// import Menu from './components/Menu'
+// import Float from './components/Float'
 import { api } from './config'
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css'
@@ -123,16 +123,16 @@ class App extends Component {
   render() {
     return (
       <div>
-        <NavigationBar search={this.handleSearch} isDown={this.state.isNavbarDown} onChaneFilter={this.handleFilter} />
         <div className="content">
-          <Menu isDown={!this.state.isNavbarDown} isOpen={this.state.isMenuOpen} toggleMenu={this.toggleMenu}/>
+          <NavigationBar search={this.handleSearch} isDown={this.state.isNavbarDown} onChaneFilter={this.handleFilter} />
+          {/*<Menu isDown={!this.state.isNavbarDown} isOpen={this.state.isMenuOpen} toggleMenu={this.toggleMenu}/>*/}
           <div id="positions" className={`${this.state.isMenuOpen? 'small' : ''}`}>
             <div className="map-position">
               <MapPosition position={this.state.positionFilted} />
             </div>
           </div>
         </div>
-        <Float />
+        { /*<Float />*/}
       </div>
     );
   }

@@ -12,6 +12,15 @@
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+    <script type="text/javascript">
+      // condif api
+      window.apiConfig = {
+        // GET, POST, PUT
+        position: 'http://127.0.0.1:3001/api/position',
+        // POST
+        deal: 'http://127.0.0.1:3001/api/position/deal',
+      }
+    </script>
+    <div id="mapPosition"></div>
   </body>
 </html>
