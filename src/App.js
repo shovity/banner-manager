@@ -34,8 +34,8 @@ class App extends Component {
       })
 
     })
-    this.handleScroll()
-    window.addEventListener('scroll', this.handleScroll)
+    // this.handleScroll()
+    // window.addEventListener('scroll', this.handleScroll)
   }
 
   handleScroll() {

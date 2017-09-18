@@ -52,7 +52,7 @@
   },
   "scripts": {
     "deploy": "scripts/deploy.sh",
-    "dev-upload-server": "nodemon server/app",
+    "dev-upload-server": "nodemon server/app.js",
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom"
